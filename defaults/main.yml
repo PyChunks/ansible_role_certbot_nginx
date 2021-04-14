@@ -1,0 +1,3 @@
+---
+# defaults file for ansible_role_certbot_nginx
+certbot_command: certbot --nginx --noninteractive --agree-tos --redirect --email {{ validate_email }} -d {{ domain }}

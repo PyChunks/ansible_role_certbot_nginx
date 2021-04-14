@@ -1,0 +1,23 @@
+---
+# tasks file for ansible_role_certbot_nginx
+
+- name: Install certbot and certbot-nginx plugin
+  ansible.builtin.package:
+    name:
+      - certbot
+      - python3-certbot-nginx
+
+- name: Look if certs exists
+  ansible.builtin.stat:
+    path: "/etc/letsencrypt/live/{{ domain }}/*.pem"
+  register: letsencrypt_cert
+
+- name: Generate certs
+  ansible.builtin.command: "{{ certbot_command }}"
+  when: not letsencrypt_cert.stat.exists
+
+- name: Restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+  when: not letsencrypt_cert.stat.exists
