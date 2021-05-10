@@ -1,7 +1,7 @@
 Role Name
 =========
 
-Creates basic DNS records for a Cloudflare registered domain
+Creates a SSL certificate for a given domain via certbot
 
 Requirements
 ------------
